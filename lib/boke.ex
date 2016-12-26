@@ -21,7 +21,7 @@ defmodule Boke do
 
   def run do
     routes = [
-      {"/", Boke.Handler, []},
+      {"/:filename", Boke.Handler, []},
       {"/static/[...]", :cowboy_static, {:priv_dir, :boke, "static"}}
     ]
 
@@ -34,19 +34,3 @@ defmodule Boke do
   end
 end
 
-defmodule Boke.Handler do
-  def init({:tcp, :http}, req, opts) do
-    headers = [{"content-type", "text/plain"}]
-    body = "Hello program!"
-    {:ok, resp} = :cowboy_req.reply(200, headers, body, req)
-    {:ok, resp, opts}
-  end
-
-  def handle(req, state) do
-    {:ok, req, state}
-  end
-
-  def terminate(_reason, _req, _state) do
-    :ok
-  end
-end
