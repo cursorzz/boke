@@ -21,7 +21,8 @@ defmodule Boke do
 
   def run do
     routes = [
-      {"/", Boke.Handler, []}
+      {"/", Boke.Handler, []},
+      {"/static/[...]", :cowboy_static, {:priv_dir, :boke, "static"}}
     ]
 
     dispatch = :cowboy_router.compile([{:_, routes}])
