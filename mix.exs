@@ -29,7 +29,8 @@ defmodule Boke.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:cowboy, "~> 1.0.0"}
+      {:cowboy, "~> 1.0.0"},
+      {:earmark, "~> 1.0"}
     ]
   end
 end

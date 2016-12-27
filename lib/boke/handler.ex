@@ -20,7 +20,8 @@ defmodule Boke.Handler do
   def get_file("GET", param, req) do
     headers = [{"content-type", "text/html"}]
     {:ok, file} = File.read "priv/pages/#{param}.md"
-    {:ok, resp} = :cowboy_req.reply(200, headers, file, req)
+    body = Earmark.to_html(file)
+    {:ok, resp} = :cowboy_req.reply(200, headers, body, req)
   end
 
   def terminate(_reason, _req, _state) do
