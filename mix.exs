@@ -30,7 +30,8 @@ defmodule Boke.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0.0"},
-      {:earmark, "~> 1.0"}
+      {:earmark, "~> 1.0"},
+      {:yaml_elixir, "~> 1.3.0"}
     ]
   end
 end
