@@ -5,7 +5,6 @@ defmodule Boke.Router do
   use Plug.ErrorHandler
 
   plug Plug.Logger, log: :debug
-
   plug Plug.Static, at: "/static", from: "priv/static"
 
   plug :match
@@ -31,21 +30,18 @@ defmodule Boke.Router do
     send_resp(conn, 404, "oops")
   end
 
-  # def init(opts), do: opts
-  #
   defp handle_errors(conn, %{kind: _kind, reason: reason, stack: _stack}) do
     send_resp(conn, conn.status, "you got an error #{IO.inspect reason}")
   end
 
   @posts_path "priv/posts/"
   defp get_post(full_name) do
-    {:ok, file} = File.read(@posts_path <> "#{full_name}.md")
-    Earmark.to_html(file)
+    post = Boke.Post.fetch_from_file(@posts_path <> "#{full_name}.md")
+    Earmark.to_html(post.content)
   end
 
   @template_path "priv/templates/"
   defp get_template(full_name, opts \\ []) do
     EEx.eval_file(@template_path <> full_name <> ".html.eex", opts)
   end
-
 end
