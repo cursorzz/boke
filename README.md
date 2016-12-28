@@ -21,4 +21,11 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
       [applications: [:boke]]
     end
     ```
+references:
+[Cowboy Tutorial Part 2: Creating Flat File Blog]http://www.elixirdose.com/post/elixirdose_flatfileblog
 
+TODOs:
+
+[] layout system
+[] global params for template rendering
+[] livereload
