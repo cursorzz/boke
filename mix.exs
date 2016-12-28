@@ -14,7 +14,7 @@ defmodule Boke.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :cowboy],
+    [applications: [:logger, :cowboy, :plug, :yaml_elixir],
      mod: {Boke, []}]
   end
 
@@ -31,7 +31,8 @@ defmodule Boke.Mixfile do
     [
       {:cowboy, "~> 1.0.0"},
       {:earmark, "~> 1.0"},
-      {:yaml_elixir, "~> 1.3.0"}
+      {:yaml_elixir, "~> 1.3.0"},
+      {:plug, "~> 1.3"}
     ]
   end
 end
