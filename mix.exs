@@ -5,6 +5,7 @@ defmodule Boke.Mixfile do
     [app: :boke,
      version: "0.1.0",
      elixir: "~> 1.3",
+     escript: escript,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
@@ -16,6 +17,10 @@ defmodule Boke.Mixfile do
   def application do
     [applications: [:logger, :cowboy, :plug, :yaml_elixir],
      mod: {Boke, []}]
+  end
+
+  def escript do
+     [main_module: Boke.Cli]
   end
 
   # Dependencies can be Hex packages:
