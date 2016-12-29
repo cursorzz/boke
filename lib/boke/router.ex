@@ -10,13 +10,17 @@ defmodule Boke.Router do
   plug :match
   plug :dispatch
 
-
   get "/" do
-    send_resp(conn, 200, "index!")
+    header = EEx.eval_file("layout/header.html.eex", [])
+    footer = EEx.eval_file("layout/footer.html.eex", [])
+
+    # 
+    content = EEx.eval_file("priv/templates/posts.html.eex", [posts: get_posts()])
+    index = EEx.eval_file("layout/index.html.eex", [header: header, content: content, footer: footer])
+    send_resp(conn, 200, index)
   end
 
   get "/posts/:post_title" do
-
     post = get_post(post_title)
     body = get_template("index", [content: post])
     
@@ -32,6 +36,13 @@ defmodule Boke.Router do
 
   defp handle_errors(conn, %{kind: _kind, reason: reason, stack: _stack}) do
     send_resp(conn, conn.status, "you got an error #{IO.inspect reason}")
+  end
+
+  def get_posts do
+    {:ok, file_names} = File.ls("priv/posts")
+    Enum.map(file_names, fn(file) -> 
+      Boke.Post.fetch_from_file("priv/posts/" <> file)
+    end)
   end
 
   @posts_path "priv/posts/"

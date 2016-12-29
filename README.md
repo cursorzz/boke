@@ -29,3 +29,4 @@ TODOs:
 [] layout system
 [] global params for template rendering
 [] livereload
+[] commandline tools

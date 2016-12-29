@@ -4,12 +4,18 @@ end
 
 defmodule Boke.Post do
 
-  defstruct meta: %Boke.PostMeta{}, content: ""
+  defstruct meta: %Boke.PostMeta{},
+    content: "",
+    url: ""
 
-  def fetch_from_file(file) do
-    {:ok, file} = File.read(file)
+  def get_url(path) do
+    Path.basename(path, ".md")
+  end
+
+  def fetch_from_file(path) do
+    {:ok, file} = File.read(path)
     {meta, content} = parse_info(file)
-    %__MODULE__{meta: meta, content: content}
+    %__MODULE__{meta: meta, content: content, url: "/posts/" <> get_url(path)}
   end
 
   def parse_info(file_string) do
