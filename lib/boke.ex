@@ -9,7 +9,8 @@ defmodule Boke do
     # Define workers and child supervisors to be supervised
     children = [
       # worker(__MODULE__, [], function: :run),
-      Plug.Adapters.Cowboy.child_spec(:http, Boke.Router, [], [port: 8000])
+      # Plug.Adapters.Cowboy.child_spec(:http, Boke.Router, [], [port: 8000])
+      # worker(Agent, [fn -> %{} end, [name: Boke.Templates]], id: "boke_templates")
       # Starts a worker by calling: Boke.Worker.start_link(arg1, arg2, arg3)
       # worker(Boke.Worker, [arg1, arg2, arg3]),
     ]
@@ -18,20 +19,6 @@ defmodule Boke do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Boke.Supervisor]
     Supervisor.start_link(children, opts)
+    # looper
   end
-
-  # def run do
-  #   routes = [
-  #     {"/:filename", Boke.Handler, []},
-  #     {"/static/[...]", :cowboy_static, {:priv_dir, :boke, "static"}}
-  #   ]
-
-  #   dispatch = :cowboy_router.compile([{:_, routes}])
-
-  #   opts = [port: 8000]
-  #   env = [dispatch: dispatch]
-
-  #   {:ok, _pid} = :cowboy.start_http(:http, 100, opts, [env: env])
-  # end
 end
-
