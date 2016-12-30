@@ -7,7 +7,6 @@ defmodule Boke.Cli do
   alias Boke.Utils
 
   def main(args) do
-    IO.puts args
     [task|opts] = args
     case task do
       "init" -> do_init(opts)
@@ -40,6 +39,7 @@ defmodule Boke.Cli do
       ---
       """
       File.write(path, content, [:write])
+      IO.puts "you just create a new post at #{path}"
     end
   end
 
