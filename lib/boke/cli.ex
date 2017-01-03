@@ -34,9 +34,9 @@ defmodule Boke.Cli do
     else
       content = """
       ---
-      draft = true
-      date = "#{DateTime.utc_now |> DateTime.to_iso8601}"
-      title = "#{get_title(file_name)}"
+      draft: true
+      date: "#{DateTime.utc_now |> DateTime.to_iso8601}"
+      title: "#{get_title(file_name)}"
       ---
       """
       File.write(path, content, [:write])
