@@ -26,7 +26,8 @@ defmodule Boke.Cli do
   def do_new(args) do
     {_parsed, file_name, _errors} = OptionParser.parse(args)
 
-    path = Utils.posts_path(get_underlined_path(file_name) <> ".md")
+    path = get_dashed_path(file_name)
+           |> Utils.posts_path
 
     if File.exists?(path) do
       IO.puts path <> " already exist"
@@ -50,9 +51,10 @@ defmodule Boke.Cli do
   end
   
   @doc "format file name to underline seperated string"
-  @spec get_underlined_path([String.t]) :: String.t
-  def get_underlined_path(file_name_list) do
-    file_name_list |> Enum.join("_")
+  @spec get_dashed_path([String.t]) :: String.t
+  def get_dashed_path(file_name_list) do
+    today = DateTime.utc_now |> DateTime.to_date |> to_string
+    today <> "-" <> (file_name_list |> Enum.join("-"))
   end
 
   def do_serve(args) do
